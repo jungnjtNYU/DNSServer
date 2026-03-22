@@ -30,7 +30,6 @@ def generate_aes_key(password, salt):
     key = base64.urlsafe_b64encode(key)
     return key
 
-# Encryption and Decryption using Fernet
 def encrypt_with_aes(input_string, password, salt):
     key = generate_aes_key(password, salt)
     f = Fernet(key)
@@ -43,9 +42,8 @@ def decrypt_with_aes(encrypted_data, password, salt):
     decrypted_data = f.decrypt(encrypted_data) 
     return decrypted_data.decode('utf-8')
 
-# --- Assignment Parameters ---
 salt = b'Tandon' 
-password = "njt4497@nyu.edu" # REPLACE with your Gradescope email
+password = "njt4497@nyu.edu" 
 input_string = "AlwaysWatching"
 
 encrypted_value = encrypt_with_aes(input_string, password, salt)
@@ -56,7 +54,6 @@ def generate_sha256_hash(input_string):
     sha256_hash.update(input_string.encode('utf-8'))
     return sha256_hash.hexdigest()
 
-# --- DNS Records Dictionary ---
 dns_records = {
     'example.com.': {
         dns.rdatatype.A: '192.168.1.101',
@@ -83,7 +80,6 @@ dns_records = {
 }
 
 def run_dns_server():
-    # Use socket.SOCK_DGRAM for UDP
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
     server_socket.bind(('127.0.0.1', 53))
 
@@ -119,7 +115,7 @@ def run_dns_server():
                     rrset.add(rdata)
                     response.answer.append(rrset)
 
-            # Set AA (Authoritative Answer) flag using bitwise shift
+            
             response.flags |= (1 << 10)
 
             print("Responding to request:", qname)
